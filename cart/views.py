@@ -7,9 +7,9 @@ def cart_summary(request):
 def cart_add(request):
     cart = Cart(request)
     if request.POST.get('action') == 'post':
-        product_id = int(request.POST.get("product_id"))  
+        product_id = request.POST.get("product_id")
         product = get_object_or_404(Product , id =product_id)
-        cart.add(product)
+        #cart.add(product)
         response = JsonResponse({'product name : ' : product.name})
         return response
 def cart_delete(request):

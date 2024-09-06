@@ -11,11 +11,12 @@ categories = Category.objects.all()
 def home(request):
     products = Product.objects.all()
     return  render(request ,'home.html' , {'products' : products ,'categories' : categories})
+
 def about(request):
     return render(request , 'about.html',{'categories': categories})
 
 
-def login_user(request ):
+def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']

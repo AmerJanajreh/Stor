@@ -37,7 +37,7 @@
             
             <br>
             <a href= "{% url 'home' %}"class = "btn btn-secondary">Home</a>
-            <button class = "btn btn-secondary" value = {{ product.id }} id= "add-cart">Add to Cart</button>
+            <button class = "btn btn-secondary" value = {{ product.id }} id= "add_cart">Add to Cart</button>
         
          
         <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
@@ -49,24 +49,28 @@
 
 
 <script>
+ 
+$(document).on('click', '#add_cart',function(e){
+     e.preventDefault();
+     $.ajax({
+ 
+            type: 'POST',
+            url: '{% url "cart_add" %}',
+            data:{
+              product_id: $("#add_cart").val(),
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+              action: "post"
+            },
+            success: function(json) {
+                console.log(json)
+            },
+ 
+            error: function(xhr, errmsg, err){
+ 
+            }
 
-  $(document).on.('click' , '#add-cart', function(e){
-    e.preventDefault();
-    $.ajax({
-        type : 'post',
-        url : '{% url 'cart_add'%}',
-        date: {
-          product.id : $('#add-cart').val(),
-          csrfmiddlewaretoken = '{% csrf_token %}',
-          action : 'post'
-        },
-        success : function(json){
-          console.log(json)
-        },
-        error : function(xhr,errmsg,err)
-    });
-
-  });
-
+     });
+    
+})
 </script>
 {% endblock content %} 
